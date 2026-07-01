@@ -1,0 +1,31 @@
+[24bcs105@mepcolinux exp4]$cat swaphead.h
+#include<stdio.h>
+int swap(int,int,int);
+[24bcs105@mepcolinux exp4]$cat swapimp.c
+#include"swaphead.h"
+int swap(int a,int b,int t)
+{
+   t=a;
+   a=b;
+   b=t;
+   printf("The swapped a is %d and b is %d" ,a,b);
+}
+[24bcs105@mepcolinux exp4]$cat swapapp.c
+#include"swaphead.h"
+int main()
+{
+   int a,b,t;
+   printf("Enter 2 numbers:");
+   scanf("%d%d",&a,&b);
+   swap(a,b,t);
+}
+[24bcs105@mepcolinux exp4]$cat swapmake
+swap: swapimp.o swapapp.o
+        cc swapimp.o swapapp.o -o swap
+swapimp.o: swaphead.h swapimp.c
+        cc -c swapimp.c
+swapapp.o: swaphead.h swapapp.c
+        cc -c swapapp.c
+[24bcs105@mepcolinux exp4]$./swap
+Enter 2 numbers:5 10
+The swapped a is 10 and b is 5
