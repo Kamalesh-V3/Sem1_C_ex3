@@ -1,0 +1,34 @@
+[24bcs105@mepcolinux exp4]$cat gcdhead.h
+#include<stdio.h>
+int gcd(int a,int b);
+[24bcs105@mepcolinux exp4]$cat gcdimp.c
+#include"gcdhead.h"
+int gcd(int a, int b)
+{
+   if(a<b)
+      return gcd(b,a);
+   else if(b==0)
+      return a;
+   else
+      return gcd(b,a%b);
+}
+[24bcs105@mepcolinux exp4]$cat gcdapp.c
+#include"gcdhead.h"
+int main()
+{
+   int a,b;
+   printf("Enter 2 numbers to find gcd:");
+   scanf("%d%d",&a,&b);
+   printf("The gcd is %d",gcd(a,b));
+   return 0;
+}
+[24bcs105@mepcolinux exp4]$cat gcdmake
+gcd: gcdimp.o gcdapp.o
+        cc gcdimp.o gcdapp.o -o gcd
+gcdimp.o: gcdhead.h gcdimp.c
+        cc -c gcdimp.c
+gcdapp.o: gcdhead.h gcdapp.c
+        cc -c gcdapp.c
+[24bcs105@mepcolinux exp4]$./gcd
+Enter 2 numbers to find gcd:60 366
+The gcd is 6
