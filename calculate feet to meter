@@ -1,0 +1,53 @@
+[24bcs105@mepcolinux exp4]$cat ftomhead.h
+#include<stdio.h>
+float ftoi(float x);
+float itoc(float y);
+float ctom(float z);
+
+[24bcs105@mepcolinux exp4]$cat ftomimp.c
+#include"ftomhead.h"
+float ftoi(float x)
+{
+   float a;
+   a= x*12;
+   printf("%2f in inch\n",a);
+   return a;
+}
+float itoc(float y)
+{
+   float b;
+   b=y*2.54;
+   printf("%2f in cm\n",b);
+   return b;
+}
+float ctom(float z)
+{
+   float c;
+   c=z/100;
+   printf("%2f in meter\n",c);
+   return c;
+}
+
+[24bcs105@mepcolinux exp4]$cat ftomapp.c
+#include"ftomhead.h"
+int main()
+{
+   float x,y,z,d;
+   printf("Enter value in feet:");
+   scanf("%f",&x);
+   printf("The %2f feet is equal to \n",x);
+   y=ftoi(x);
+   z=itoc(y);
+   d=ctom(z);
+}
+
+[24bcs105@mepcolinux exp4]$cat ftommake
+ftom: ftomimp.o ftomapp.o
+        cc ftomimp.o ftomapp.o -o ftom
+ftomimp.o: ftomhead.h ftomimp.c
+        cc -c ftomimp.c
+ftomapp.o: ftomhead.h ftomapp.c
+        cc -c ftomapp.c
+[24bcs105@mepcolinux exp4]$./ftom
+Enter value in feet:2
+The 2.000000 feet is equal to 24.000000 in inch60.959999 in cm0.609600 in meter
