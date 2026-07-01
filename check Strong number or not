@@ -1,0 +1,54 @@
+[24bcs105@mepcolinux exp4]$cat stronghead.h
+#include<stdio.h>
+int strong(int);
+int fact(int);
+[24bcs105@mepcolinux exp4]$cat strongimp.c
+#include"stronghead.h"
+int fact(int n)
+{
+   long int fact=1,j;
+   if(n==0||j==1)
+      return 1;
+   else
+      for(j=1;j<=n;++j)
+         fact=fact*j;
+   return fact;
+}
+int strong(int a)
+{
+   int b,c=0,d;
+   long int n;
+   d=a;
+   while(a>0)
+   {
+      n=a%10;
+      b=fact(n);
+      c=c+b;
+      a=a/10;
+   }
+   printf("Sum of factorial of given number is %d\n",c);
+   if(d==c)
+      printf("%d is strong number",c);
+   else
+      printf("%d is not strong number",c);
+}
+[24bcs105@mepcolinux exp4]$cat strongapp.c
+#include"stronghead.h"
+int main()
+{
+   int a;
+   printf("Enter the number:");
+   scanf("%d",&a);
+   strong(a);
+}
+[24bcs105@mepcolinux exp4]$cat strongmake
+strong: strongimp.o strongapp.o
+        cc strongimp.o strongapp.o -o strong
+strongimp.o: stronghead.h strongimp.c
+        cc -c strongimp.c
+strongapp.o: stronghead.h strongapp.c
+        cc -c strongapp.c
+[24bcs105@mepcolinux exp4]$./strong
+Enter the number:1545
+Sum of factorial of given number is 145
+145 is strong number
