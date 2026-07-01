@@ -1,0 +1,33 @@
+[24bcs105@mepcolinux exp4]$cat counthead.h
+#include<stdio.h>
+int count(int);
+[24bcs105@mepcolinux exp4]$cat countimp.c
+#include"counthead.h"
+int count(int b)
+{
+   int c=1;
+   if(b==0)
+      return 0;
+   else
+      return c+count(b/10);
+}
+[24bcs105@mepcolinux exp4]$cat countapp.c
+#include"counthead.h"
+int main()
+{
+   int a;
+   printf("Enter the number:");
+   scanf("%d",&a);
+   printf("The number of digits is %d",count(a));
+   return 0;
+}
+[24bcs105@mepcolinux exp4]$cat countmake
+count: countimp.o countapp.o
+        cc countimp.o countapp.o -o count
+countimp.o: counthead.h countimp.c
+        cc -c countimp.c
+countapp.o: counthead.h countapp.c
+        cc -c countapp.c
+[24bcs105@mepcolinux exp4]$./count
+Enter the number:1456
+The number of digits is 4
